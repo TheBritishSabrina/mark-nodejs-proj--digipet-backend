@@ -3,6 +3,7 @@ import {
   feedDigipet,
   hatchDigipet,
   ignoreDigipet,
+  rehomeDigipet,
   trainDigipet,
   walkDigipet,
 } from "./digipet/controller";
@@ -88,6 +89,38 @@ describe("GET /digipet/hatch", () => {
     expect(hatchDigipet).toHaveBeenCalledTimes(1);
   });
 });
+
+describe("GET /digipet/rehome", () => {
+  test("if the user has a digipet, it responds with a message about rehoming and calls setDigipet", async () => {
+    // setup
+    if (jest.isMockFunction(rehomeDigipet) /* type guard */) {
+      rehomeDigipet.mockReset();
+    }
+    setDigipet(INITIAL_DIGIPET);
+
+    // act
+    const response = await supertest(app).get("/digipet/rehome");
+
+    // assert
+    expect(response.body.message).toMatch(/rehome/i);
+    expect(rehomeDigipet).toHaveBeenCalledTimes(1);
+  });
+
+  test("if the user doesn't have a digipet, it responds with a message explaining that a nonexistent digipet can't be rehomed", async () => {
+    // setup
+    if (jest.isMockFunction(rehomeDigipet) /* type guard */) {
+      rehomeDigipet.mockReset();
+    }
+    setDigipet(undefined);
+
+    // act
+    const response = await supertest(app).get("/digipet/rehome");
+
+    // assert
+    expect(response.body.message).toMatch(/can't rehome/i);
+    expect(rehomeDigipet).toHaveBeenCalledTimes(0);
+  });
+})
 
 describe("action routes", () => {
   test("when the user does not have a digipet, action routes direct them to hatch a digipet and do not call their relevant controllers", async () => {

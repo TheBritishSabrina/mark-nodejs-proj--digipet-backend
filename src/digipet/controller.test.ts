@@ -2,6 +2,7 @@ import {
   feedDigipet,
   hatchDigipet,
   ignoreDigipet,
+  rehomeDigipet,
   trainDigipet,
   walkDigipet,
 } from "./controller";
@@ -199,3 +200,25 @@ describe("ignoreDigipet", () => {
     expect(getDigipet()).toHaveProperty("discipline", 0);
   });
 });
+
+describe("rehomeDigipet", () => {
+  test("when there is an existing digipet, it sets the digipet to undefined", () => {
+    // setup
+    setDigipet(INITIAL_DIGIPET);
+    expect(getDigipet()).toStrictEqual(INITIAL_DIGIPET);
+
+    // act
+    rehomeDigipet();
+
+    // assert
+    expect(getDigipet()).toBeNull();
+  });
+
+  test("when there is no existing digipet, it throws an error", () => {
+    // setup
+    setDigipet(undefined);
+
+    // assert error gets thrown
+    expect(() => rehomeDigipet()).toThrowError();
+  });
+})

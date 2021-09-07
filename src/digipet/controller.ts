@@ -43,3 +43,11 @@ export function ignoreDigipet(): void {
   updateDigipetBounded("nutrition", -10);
   updateDigipetBounded("discipline", -10);
 }
+
+export function rehomeDigipet(): void {
+  if (!getDigipet()) {
+    throw new Error("Can't rehome a digipet when you don't have one!");
+  } else {
+    setDigipet(undefined);
+  }
+}
