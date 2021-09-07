@@ -114,7 +114,7 @@ describe("action routes", () => {
     }
   });
 
-  describe.skip("GET /digipet/feed", () => {
+  describe("GET /digipet/feed", () => {
     test("if the user has a digipet, it calls the feedDigipet controller and responds with a message about feeding the digipet", async () => {
       // setup: reset digipet
       setDigipet(INITIAL_DIGIPET);
@@ -122,7 +122,7 @@ describe("action routes", () => {
       const response = await supertest(app).get("/digipet/feed");
 
       // response includes a relevant message
-      expect(response.body.message).toMatch(/feed/i);
+      expect(response.body.message).toMatch(/fed/i);
 
       // response includes digipet data
       expect(response.body.digipet).toHaveProperty("happiness");

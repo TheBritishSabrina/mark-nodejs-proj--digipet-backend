@@ -48,7 +48,7 @@ describe("When a user trains a digipet repeatedly, its discipline increases by 1
   });
 });
 
-describe.skip("When a user trains a digipet repeatedly, its happiness decreases by 5 each time until it eventually floors out at 0", () => {
+describe("When a user trains a digipet repeatedly, its happiness decreases by 5 each time until it eventually floors out at 0", () => {
   beforeAll(() => {
     // setup: give an initial digipet
     const startingDigipet: Digipet = {
@@ -86,7 +86,7 @@ describe.skip("When a user trains a digipet repeatedly, its happiness decreases 
   });
 });
 
-describe.skip("When a digipet is maxed out on discipline, it is still possible to train it and decrease its happiness", () => {
+describe("When a digipet is maxed out on discipline, it is still possible to train it and decrease its happiness", () => {
   beforeAll(() => {
     // setup: give an initial digipet
     const startingDigipet: Digipet = {
