@@ -37,3 +37,9 @@ export function walkDigipet(): void {
   updateDigipetBounded("happiness", 10);
   updateDigipetBounded("nutrition", -5);
 }
+
+export function ignoreDigipet(): void {
+  updateDigipetBounded("happiness", -10);
+  updateDigipetBounded("nutrition", -10);
+  updateDigipetBounded("discipline", -10);
+}

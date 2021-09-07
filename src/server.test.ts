@@ -2,6 +2,7 @@ import supertest from "supertest";
 import {
   feedDigipet,
   hatchDigipet,
+  ignoreDigipet,
   trainDigipet,
   walkDigipet,
 } from "./digipet/controller";
@@ -201,6 +202,35 @@ describe("action routes", () => {
       await supertest(app).get("/digipet/walk");
       // assert
       expect(walkDigipet).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("GET /digipet/ignore", () => {
+    test("if the user has a digipet, it responds with a message about being ignored", async () => {
+      // setup: reset digipet
+      setDigipet(INITIAL_DIGIPET);
+
+      const response = await supertest(app).get("/digipet/ignore");
+
+      // response includes a relevant message
+      expect(response.body.message).toMatch(/ignore/i);
+
+      // response includes digipet data
+      expect(response.body.digipet).toHaveProperty("happiness");
+      expect(response.body.digipet).toHaveProperty("nutrition");
+      expect(response.body.digipet).toHaveProperty("discipline");
+    });
+
+    it("delegates state change to the ignoreDigipet function", async () => {
+      // setup: reset digipet and mock function
+      setDigipet(INITIAL_DIGIPET);
+      if (jest.isMockFunction(ignoreDigipet) /* type guard */) {
+        ignoreDigipet.mockReset();
+      }
+      // act
+      await supertest(app).get("/digipet/ignore");
+      // assert
+      expect(ignoreDigipet).toHaveBeenCalledTimes(1);
     });
   });
 });
