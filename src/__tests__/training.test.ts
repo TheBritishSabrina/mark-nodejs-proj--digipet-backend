@@ -10,7 +10,7 @@ import app from "../server";
  *  2. training a digipet leads to decreasing happiness
  */
 
-describe.skip("When a user trains a digipet repeatedly, its discipline increases by 10 each time until it eventually maxes out at 100", () => {
+describe("When a user trains a digipet repeatedly, its discipline increases by 10 each time until it eventually maxes out at 100", () => {
   beforeAll(() => {
     // setup: give an initial digipet
     const startingDigipet: Digipet = {
